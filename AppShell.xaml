@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MAUITest.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MAUITest.UI;assembly=MAUITest"
+    xmlns:bankDetails="clr-namespace:MAUITest.UI.BankDetails;assembly=MAUITest"
+    xmlns:cardDetails="clr-namespace:MAUITest.UI.CardDetails;assembly=MAUITest"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutHeaderBehavior="CollapseOnScroll"
+    Title="MAUITest">
+
+<Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="{AppThemeBinding Default={StaticResource Gray600}}"
+                  HeightRequest="200">
+                <Image Aspect="AspectFill"
+                       Source="store.jpg"
+                       Opacity="0.6" />
+                <Label Text=""
+                       TextColor="Transparent"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+            </Grid>            
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Domestic">
+            <ShellContent
+                Title="Home Tab"
+                ContentTemplate="{DataTemplate local:MainPage}"/>
+
+            <ShellContent
+                Title="Bank Details Tab"
+                ContentTemplate="{DataTemplate bankDetails:BankDetailsListPage}"/>
+        </Tab>
+        <ShellContent
+                Title="Home FlyoutItem"
+                ContentTemplate="{DataTemplate local:MainPage}"/>
+
+        <ShellContent
+                Title="Bank Details FlyoutItem"
+                ContentTemplate="{DataTemplate bankDetails:BankDetailsListPage}"/>
+    </FlyoutItem>-->
+
+        <!--ContentTemplate="{DataTemplate local:MainPage}"-->
+
+   <ShellContent
+            Title="Dashboard"
+            FlyoutIcon="speedometer.png"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage">
+        </ShellContent>
+
+    <MenuItem Text="Bank Details"
+              IconImageSource="information.png"
+              Clicked="BankDetails_Clicked"/>
+
+    <MenuItem Text="Card Details"
+              IconImageSource="card.png"
+              Clicked="CardDetails_Clicked"/>
+
+    <!--<ShellContent
+        Title="Bank Details"
+        FlyoutIcon="information.png"
+        ContentTemplate="{DataTemplate bankDetails:BankDetailsListPage}"
+        Route="BankDetailsListPage" />-->
+    
+    <!--<ShellContent
+        Title="Card Details"
+        FlyoutIcon="card.png"
+        ContentTemplate="{DataTemplate cardDetails:CardDetailsPage}"
+        Route="CardDetailsPage" />-->
+
+    <ShellContent
+        Title="Contact us"
+        FlyoutIcon="email.png"
+        ContentTemplate="{DataTemplate bankDetails:BankDetailsListPage}"
+        Route="BankDetailsListPage" />
+
+    <ShellContent
+        Title="About us"
+        FlyoutIcon="about_us.png"
+        ContentTemplate="{DataTemplate bankDetails:BankDetailsListPage}"
+        Route="BankDetailsListPage" />
+
+    <!--<Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*">
+                <Image Source="{Binding Icon}"
+                       Margin="5"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Text}"
+                       FontAttributes="Italic"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>-->
+
+    <Shell.FlyoutFooter>
+        <Grid ColumnDefinitions="0.8*,0.2*"
+            Padding="10">
+            <Label
+                x:Name="lblVersion"
+                TextColor="Grey"
+                Text="App version 1.0.0"
+                FontAutoScalingEnabled="True"
+                FontSize="Small"
+                VerticalOptions="EndAndExpand" 
+                HorizontalOptions="Center"
+                Margin="10"/>
+        </Grid>
+    </Shell.FlyoutFooter>
+
+</Shell>

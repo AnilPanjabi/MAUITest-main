@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUITest.UI.CardDetails"
+             x:Class="MAUITest.UI.CardDetails.CardDetailsListPage"
+             xmlns:local="clr-namespace:MAUITest.Business.Models.ViewModels"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="{AppThemeBinding Default={StaticResource Gray600},Dark={StaticResource Gray600}}"
+             Title="CardDetailsListPage"
+             x:DataType="vm:CardDetailsPageViewModel"
+             x:Name="_cardDetailsListPage">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="back_arrow" />   
+    </Shell.BackButtonBehavior>
+
+    <Grid>
+        <CollectionView ItemsSource="{Binding Path=CardDetails}" EmptyView="No items to display">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:CardDetailsViewModel">
+                    <Frame Padding="2,2,2,15" >
+                        <StackLayout Orientation="Vertical" Padding="10">
+                            <Grid RowDefinitions="30,30,30,auto" ColumnDefinitions="*,*,*,auto"
+                                                            VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                         
+                                <Label Text="{Binding CardProviderBankName}" FontAttributes="Bold" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0"/>
+
+                                <Label FontAttributes="Bold" Text="Card Holder Name: " Grid.Row="1" Grid.Column="0"/>
+                                <Label Text="{Binding CardHolderName}" Grid.Row="1" Grid.Column="1"/>
+
+                                <Label FontAttributes="Bold" Text="Card Number: " Grid.Row="2" Grid.Column="0"/>
+                                <Label Text="{Binding CardNumber}" Grid.Row="2" Grid.Column="1"/>
+                                
+                                <Label FontAttributes="Bold" Text="Expired on: " Grid.Row="3" Grid.Column="0"/>
+                                <Label Text="{Binding ExpiryMonth}" Grid.Row="3" Grid.Column="1"/><Label Text="/" Grid.Row="3" Grid.Column="1"/><Label Text="{Binding ExpiryYear}" Grid.Row="3" Grid.Column="1"/>
+
+                                <Label FontAttributes="Bold" Text="CVV Code: " Grid.Row="3" Grid.Column="0"/>
+                                <Label Text="{Binding CVVCode}" Grid.Row="3" Grid.Column="1"/>
+
+                                <ImageButton Source="copy.png"
+                                            Command="{Binding Source={x:Reference _cardDetailsListPage}, Path=BindingContext.CopyCommand}"
+                                            CommandParameter="{Binding CardNumber}"
+                                            WidthRequest="15"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Grid.Row="2" Grid.Column="2"/>
+                                <!--<ImageButton Source="copy.png"
+                                            Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.CopyCommand}"
+                                            CommandParameter="{Binding IFSCCode}"
+                                            WidthRequest="15"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Grid.Row="3" Grid.Column="2"/>-->
+
+
+                                <ImageButton Source="edit.png"
+                                            Command="{Binding Source={x:Reference _cardDetailsListPage}, Path=BindingContext.EditCommand}"
+                                            CommandParameter="{Binding .}"
+                                            WidthRequest="15"
+                                            HeightRequest="15"
+                                            HorizontalOptions="End"
+                                            Grid.Row="0" Grid.Column="3"/>
+
+                                <ImageButton Source="share_arrow.png"
+                                            Command="{Binding Source={x:Reference _cardDetailsListPage}, Path=BindingContext.ShareCommand}"
+                                            CommandParameter="{Binding .}"
+                                            WidthRequest="15"
+                                            HeightRequest="15"
+                                            HorizontalOptions="End"
+                                            Grid.Row="1" Grid.Column="3"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Floating action button -->
+        <Frame CornerRadius="30" 
+               WidthRequest="60" 
+               HeightRequest="60" 
+               BackgroundColor="{AppThemeBinding Default={StaticResource Gray500},Dark={StaticResource Gray500}}"
+               VerticalOptions="End" 
+               HorizontalOptions="End"
+               Margin="20"
+               HasShadow="True">
+            <ImageButton Source="plus_white.png"
+                         Command="{Binding AddCommand}"
+                         WidthRequest="20"
+                         HeightRequest="20"
+                         BackgroundColor="Transparent"/>
+        </Frame>
+    </Grid>
+
+</ContentPage>

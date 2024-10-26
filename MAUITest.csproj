@@ -1,0 +1,141 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MAUITest</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>MAUITest</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.mauitest</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Business\" />
+	  <None Remove="Business.Models\" />
+	  <None Remove="Data\" />
+	  <None Remove="UI\" />
+	  <None Remove="UI\BankDetails\" />
+	  <None Remove="Data\Models\" />
+	  <None Remove="Business.Models\ViewModels\" />
+	  <None Remove="Business\Services\" />
+	  <None Remove="Business\Services\BankDetails\" />
+	  <None Remove="Resources\Images\edit.png" />
+	  <None Remove="Business\Common\" />
+	  <None Remove="Business\Common\Extensions\" />
+	  <None Remove="Resources\Images\share_flat_icon.png" />
+	  <None Remove="Resources\Images\share_arrow.png" />
+	  <None Remove="Resources\Images\back_arrow.png" />
+	  <None Remove="Resources\Images\plus.png" />
+	  <None Remove="Resources\Images\plus_white.png" />
+	  <None Remove="Resources\Images\copy.png" />
+	  <None Remove="Data\Configurations\" />
+	  <None Remove="Data\Repositories\" />
+	  <None Remove="UI\Profiles\" />
+	  <None Remove="Resources\Images\about-us.png" />
+	  <None Remove="Resources\Images\credit-card.png" />
+	  <None Remove="Resources\Images\email.png" />
+	  <None Remove="Resources\Images\information.png" />
+	  <None Remove="Resources\Images\speedometer.png" />
+	  <None Remove="UI\CardDetails\" />
+	  <None Remove="Business\Services\CardDetails\" />
+	  <None Remove="Resources\Fonts\MaterialDesignIcons-Font.ttf" />
+	  <None Remove="UI\Helpers\" />
+	  <None Remove="UI\CustomControls\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Business\" />
+	  <Folder Include="Business.Models\" />
+	  <Folder Include="Data\" />
+	  <Folder Include="UI\" />
+	  <Folder Include="UI\BankDetails\" />
+	  <Folder Include="Data\Models\" />
+	  <Folder Include="Business.Models\ViewModels\" />
+	  <Folder Include="Business\Services\" />
+	  <Folder Include="Business\Services\BankDetails\" />
+	  <Folder Include="Business\Common\" />
+	  <Folder Include="Business\Common\Extensions\" />
+	  <Folder Include="Data\Configurations\" />
+	  <Folder Include="Data\Repositories\" />
+	  <Folder Include="UI\Profiles\" />
+	  <Folder Include="UI\CardDetails\" />
+	  <Folder Include="Business\Services\CardDetails\" />
+	  <Folder Include="UI\Helpers\" />
+	  <Folder Include="UI\CustomControls\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\edit.png" />
+	  <BundleResource Include="Resources\Images\share_flat_icon.png" />
+	  <BundleResource Include="Resources\Images\share_arrow.png" />
+	  <BundleResource Include="Resources\Fonts\Material-Design-Icons.ttf" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUITest.UI.BankDetails"
+             x:Class="MAUITest.UI.BankDetails.BankDetailsPage"
+             Title="Add Bank Details"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="{AppThemeBinding Default={StaticResource Gray600},Dark={StaticResource Gray600}}"
+             x:DataType="vm:BankDetailsPageViewModel">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="back_arrow" />   
+    </Shell.BackButtonBehavior>
+    
+    <!--<VerticalStackLayout>
+        <Label 
+            Text="Add Bank Details"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>-->
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="15">
+
+                <!-- Bank Name -->
+                <Label Text="Bank Name" FontAttributes="Bold" />
+                <Entry x:Name="BankNameEntry" Placeholder="Enter bank name" Text="{Binding Path=BankDetail.BankName}" />
+
+                <!-- Account Holder Name -->
+                <Label Text="Account Holder Name" FontAttributes="Bold" />
+                <Entry x:Name="AccountHolderNameEntry" Placeholder="Enter account holder name" Text="{Binding Path=BankDetail.AccountHolderName}" />
+
+                <!-- Account Number -->
+                <Label Text="Account Number" FontAttributes="Bold" />
+                <Entry x:Name="AccountNumberEntry" Placeholder="Enter account number" Keyboard="Numeric" Text="{Binding Path=BankDetail.AccountNumber}" />
+
+                <!-- IFSC Code -->
+                <Label Text="IFSC Code" FontAttributes="Bold" />
+                <Entry x:Name="IfscCodeEntry" Placeholder="Enter IFSC code" Text="{Binding Path=BankDetail.IFSCCode}" />
+
+                 <!--Branch 
+                <Label Text="Branch" FontAttributes="Bold" />
+                <Entry x:Name="BranchEntry" Placeholder="Enter branch" />
+
+                 Customer ID 
+                <Label Text="Customer ID" FontAttributes="Bold" />
+                <Entry x:Name="CustomerIdEntry" Placeholder="Enter customer ID" Keyboard="Numeric" />-->
+
+                 <!--Upload Image--> 
+                <Label Text="Upload Image" FontAttributes="Bold" IsVisible="False" />
+                <Button x:Name="UploadImageButton" Text="Choose Image" Clicked="OnUploadImageButtonClicked" IsVisible="False" />
+                <Image x:Name="SelectedImage" HeightRequest="200" Aspect="AspectFill" IsVisible="False" />
+
+                <!-- Add Button -->
+                <Button x:Name="AddButton" Text="Add" Clicked="OnAddButtonClicked" BackgroundColor="{AppThemeBinding Default={StaticResource Gray500}}" TextColor="White" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+
+</ContentPage>

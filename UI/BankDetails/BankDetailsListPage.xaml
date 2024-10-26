@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUITest.UI.BankDetails"
+             xmlns:local="clr-namespace:MAUITest.Business.Models.ViewModels"
+             Shell.BackgroundColor="{AppThemeBinding Default={StaticResource Gray600},Dark={StaticResource Gray600}}"
+             Shell.TitleColor="White"
+             Title="Bank Details"
+             xmlns:const="clr-namespace:MAUITest.Business.Models;assembly=MAUITest"
+             xmlns:iconHelper="clr-namespace:MAUITest.UI.Helpers;assembly=MAUITest"
+             x:Name="_bankDetailsListPage"
+             x:Class="MAUITest.UI.BankDetails.BankDetailsListPage"
+             x:DataType="vm:BankDetailsPageViewModel">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="back_arrow" />   
+    </Shell.BackButtonBehavior>
+
+<!--<AbsoluteLayout BackgroundColor="red">
+    <StackLayout BackgroundColor="Yellow">
+    </StackLayout>
+    </AbsoluteLayout>-->
+
+    <Grid>
+        <CollectionView ItemsSource="{Binding Path=BankDetails}" EmptyView="No items to display">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:BankDetailsViewModel">
+                <Frame Padding="2,2,2,15" >
+                    <Grid RowDefinitions="30,30,30,auto" ColumnDefinitions="*,*,*,auto"
+                                                    VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                         
+                        <Label Text="{Binding BankName}" FontAttributes="Bold" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0"/>
+
+                        <Label FontAttributes="Bold" Text="A/C Holder Name: " Grid.Row="1" Grid.Column="0"/>
+                        <Label Text="{Binding AccountHolderName}" Grid.Row="1" Grid.Column="1"/>
+
+                        <Label FontAttributes="Bold" Text="A/C Number: " Grid.Row="2" Grid.Column="0"/>
+                        <Label Text="{Binding AccountNumber}" Grid.Row="2" Grid.Column="1"/>
+
+                        <Label FontAttributes="Bold" Text="IFSC Code: " Grid.Row="3" Grid.Column="0"/>
+                        <Label Text="{Binding IFSCCode}" Grid.Row="3" Grid.Column="1"/>
+
+                        <ImageButton 
+                                    Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.CopyCommand}"
+                                    CommandParameter="{Binding AccountNumber}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    HeightRequest="15"
+                                    WidthRequest="15"
+                                    Grid.Row="2" Grid.Column="2">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static const:Constants.MaterialDesignIcons}"
+                                    Glyph="{x:Static iconHelper:MaterialIconHelper.ContentCopy}"
+                                    Color="Grey"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+
+                        <ImageButton Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.CopyCommand}"
+                                    CommandParameter="{Binding IFSCCode}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Start"
+                                    HeightRequest="15"
+                                    WidthRequest="15"
+                                    Grid.Row="3" Grid.Column="2">
+
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static const:Constants.MaterialDesignIcons}"
+                                    Glyph="{x:Static iconHelper:MaterialIconHelper.ContentCopy}"
+                                    Color="Grey"/>
+                            </ImageButton.Source>
+                        </ImageButton>
+
+
+                        <!--<ImageButton Source="copy.png"
+                                    Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.CopyCommand}"
+                                    CommandParameter="{Binding IFSCCode}"
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    Grid.Row="3" Grid.Column="2"/>-->
+
+
+                        <ImageButton Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.EditCommand}"
+                                    CommandParameter="{Binding .}"
+                                    HorizontalOptions="End"
+                                     
+                                    HeightRequest="20"
+                                    WidthRequest="20"
+                                    Grid.Row="0" Grid.Column="3">
+
+                                <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static const:Constants.MaterialDesignIcons}"
+                                    Glyph="{x:Static iconHelper:MaterialIconHelper.TableEdit}"
+                                    Color="Grey"/>
+                            </ImageButton.Source>
+                            </ImageButton>
+
+                            <ImageButton
+                                    Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.ShareCommand}"
+                                    CommandParameter="{Binding .}"
+                                    WidthRequest="20"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    Grid.Row="1" Grid.Column="3">
+
+                                
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{x:Static const:Constants.MaterialDesignIcons}"
+                                    Glyph="{x:Static iconHelper:MaterialIconHelper.Share}"
+                                    Color="Grey"/>
+                            </ImageButton.Source>
+                                </ImageButton>
+
+                        <!--<ImageButton Source="edit.png"
+                                    Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.EditCommand}"
+                                    CommandParameter="{Binding .}"
+                                    WidthRequest="15"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Grid.Row="0" Grid.Column="3"/>-->
+
+                        <!--<ImageButton Source="share_arrow.png"
+                                    Command="{Binding Source={x:Reference _bankDetailsListPage}, Path=BindingContext.ShareCommand}"
+                                    CommandParameter="{Binding .}"
+                                    WidthRequest="15"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Grid.Row="1" Grid.Column="3"/>-->
+                    </Grid>
+                </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--<Button Text="+"
+                    FontSize="24"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    CornerRadius="30"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    Margin="20"
+                    Command="{Binding AddCommand}"/>-->
+
+        <!-- Floating action button -->
+        <Frame CornerRadius="30" 
+               WidthRequest="60" 
+               HeightRequest="60" 
+               BackgroundColor="{AppThemeBinding Default={StaticResource Gray500},Dark={StaticResource Gray500}}"
+               VerticalOptions="End" 
+               HorizontalOptions="End"
+               Margin="20"
+               HasShadow="True">
+            <ImageButton Source="plus_white.png"
+                         Command="{Binding AddCommand}"
+                         WidthRequest="20"
+                         HeightRequest="20"
+                         BackgroundColor="Transparent"/>
+        </Frame>
+    </Grid>
+</ContentPage>

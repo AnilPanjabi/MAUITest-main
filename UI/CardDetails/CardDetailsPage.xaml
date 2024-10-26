@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MAUITest.UI.CardDetails"
+             xmlns:customcontrols="clr-namespace:MAUITest.UI.CustomControls"
+             x:Class="MAUITest.UI.CardDetails.CardDetailsPage"
+             Shell.TitleColor="White"
+             Shell.BackgroundColor="{AppThemeBinding Default={StaticResource Gray600},Dark={StaticResource Gray600}}"
+             Title="CardDetailsPage"
+             x:DataType="vm:CardDetailsPageViewModel">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IconOverride="back_arrow" />   
+    </Shell.BackButtonBehavior>
+
+    <!--<VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>-->
+
+    <StackLayout Padding="20" Spacing="15">
+
+        <!-- Card Type Dropdown -->
+        <Picker x:Name="CardType" Title="Select Card Type" SelectedItem="{Binding Path=CardDetail.CardType}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Credit Card</x:String>
+                    <x:String>Debit Card</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label x:Name="CardTypeError" TextColor="Red" FontSize="Micro" Margin="5,-20,0,0" IsVisible="False"/>
+
+        <!-- Card Provider Bank Name -->
+        <Entry x:Name="CardProviderBankNameEntry" Placeholder="Card Provider Bank Name" Text="{Binding Path=CardDetail.CardProviderBankName}"/>
+        <Label x:Name="CardProviderBankNameEntryError" TextColor="Red" FontSize="Micro" Margin="5,-20,0,0" IsVisible="False"/>
+
+        <!-- Card Number -->
+        <Entry x:Name="CardNumberEntry" Placeholder="Card Number" MaxLength="16" Keyboard="Numeric" Text="{Binding Path=CardDetail.CardNumber}"/>
+        <Label x:Name="CardNumberError" TextColor="Red" FontSize="Micro" Margin="5,-20,0,0" IsVisible="False"/>
+
+        <!-- Cardholder Name -->
+        <Entry x:Name="CardholderNameEntry" Placeholder="Cardholder Name" Text="{Binding Path=CardDetail.CardHolderName}"/>
+        <Label x:Name="CardholderNameError" TextColor="Red" FontSize="Micro" Margin="5,-20,0,0" IsVisible="False"/>
+
+        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*">
+            <!-- Expiration Date -->
+            <StackLayout Grid.Column="0">
+                <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*">
+                    <Label Grid.Row="0" x:Name="lblCardExpiry" Text="Card Expiry:"/>
+                    <customcontrols:MonthYearPicker Grid.Row="1" Grid.Column="0" x:Name="ExDate" SelectedMonth="{Binding Path=CardDetail.ExpiryMonth}" SelectedYear="{Binding Path=CardDetail.ExpiryYear}"/>
+                    <Label Grid.Row="2" x:Name="CardExpiryError" TextColor="Red" FontSize="Micro" Margin="5,-8,0,0" IsVisible="False"/>
+                </Grid>
+            </StackLayout>
+            <!-- CVV -->
+            <Grid Grid.Column="1" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*">
+                <Label Grid.Row="0" Grid.Column="0" Text="CVV:"/>
+
+                <Entry Grid.Row="1" Grid.Column="0" x:Name="CVVEntry" Placeholder="CVV" Keyboard="Numeric" Text="{Binding Path=CardDetail.CVVCode}" MaxLength="3" IsPassword="True"/>
+                <Button Grid.Row="1" Grid.Column="1" x:Name="CVVHideShow" Clicked="CVVHideShow_Clicked" BackgroundColor="White" TextColor="Gray" Text="Show"/>
+                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="CVVError" TextColor="Red" FontSize="Micro" Margin="5,-8,0,0" IsVisible="False"/>
+            </Grid>
+        </Grid>
+
+        <!-- Submit Button -->
+        <Button x:Name="AddCardDetails" Text="Submit" Clicked="OnSubmitClicked" BackgroundColor="{AppThemeBinding Default={StaticResource Gray500}}" TextColor="White" />
+        
+    </StackLayout>
+
+
+</ContentPage>
